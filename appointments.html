@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"><title>Agendamentos Online</title>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo"><h2>Servi<span>flex</span></h2></div>
+            <nav class="menu"><a href="admin.html">Resumo Geral</a><a href="clients.html">CRM Clientes</a><a href="appointments.html" class="active">Agendamentos</a></nav>
+        </aside>
+        <main class="main-content">
+            <section class="content-block" style="max-width: 600px; margin: 0 auto 2rem auto;">
+                <h2><i class="fa-solid fa-calendar-plus"></i> Marcar Novo Horário</h2>
+                <form id="agendamento-form" class="form-grid" style="grid-template-columns: 1fr;">
+                    <select id="agendamento-empresa" required></select>
+                    <select id="agendamento-servico" required>
+                        <option>Corte Masculino Avançado</option>
+                        <option>Tratamento Estético Facial</option>
+                        <option>Manicure e Pedicure Profissional</option>
+                    </select>
+                    <input type="date" id="agendamento-data" required>
+                    <input type="time" id="agendamento-hora" required>
+                    <button type="submit" class="btn-primary">Confirmar Agendamento no Sistema</button>
+                </form>
+            </section>
+            <section class="content-block">
+                <h2>Agenda de Atendimentos Confirmados (H2 Database)</h2>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Data</th><th>Horário</th><th>Serviço Solicitado</th><th>Status</th></tr></thead>
+                        <tbody id="agendamentos-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../js/app.js"></script>
+</body>
+</html>

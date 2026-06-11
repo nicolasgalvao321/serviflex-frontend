@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviflex - Agendamento Estilo Booksy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body{
+        background:#f4f7fc;
+        min-height:100vh;
+    }
+
+    .booksy-card{
+        background:#fff;
+        border:none;
+        border-radius:20px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .titulo-principal{
+        font-weight:700;
+        color:#1e293b;
+    }
+
+    .service-option{
+        border:2px solid #e2e8f0;
+        border-radius:14px;
+        padding:16px;
+        margin-bottom:15px;
+        cursor:pointer;
+        transition:all .25s ease;
+        background:#fff;
+    }
+
+    .service-option:hover{
+        border-color:#ff2a54;
+        transform:translateY(-2px);
+    }
+
+    .service-option.selected{
+        border-color:#ff2a54;
+        background:rgba(255,42,84,0.08);
+    }
+
+    .time-slot{
+        display:inline-block;
+        padding:12px 18px;
+        margin:5px;
+        border:1px solid #cbd5e1;
+        border-radius:10px;
+        cursor:pointer;
+        font-weight:600;
+        transition:.2s;
+        background:#fff;
+    }
+
+    .time-slot:hover{
+        border-color:#ff2a54;
+    }
+
+    .time-slot.selected{
+        background:#ff2a54;
+        color:#fff;
+        border-color:#ff2a54;
+    }
+
+    .form-control{
+        border-radius:10px;
+        padding:12px;
+    }
+
+    .form-control:focus{
+        border-color:#ff2a54;
+        box-shadow:0 0 0 0.25rem rgba(255,42,84,.15);
+    }
+
+    .btn-booksy{
+        background:#ff2a54;
+        color:white;
+        border:none;
+        border-radius:12px;
+        font-weight:600;
+        transition:.2s;
+    }
+
+    .btn-booksy:hover{
+        background:#e02246;
+        color:white;
+    }
+
+    .badge-price{
+        background:#212529;
+        color:white;
+        padding:8px 12px;
+        border-radius:8px;
+        font-size:.9rem;
+    }
+
+    @media(max-width:768px){
+        .time-slot{
+            display:block;
+            width:100%;
+            text-align:center;
+            margin-bottom:10px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="card booksy-card p-4 p-md-5">
+
+            <h2 class="text-center mb-4 titulo-principal">
+                ✨ Agende seu Horário (Serviflex)
+            </h2>
+
+            <h5 class="mb-3">1. Selecione o Serviço</h5>
+
+            <div class="service-option"
+                 onclick="selecionarServico(this,'Corte Masculino Navalhado')">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <strong>Corte Masculino Navalhado</strong>
+
+                        <p class="text-muted mb-0" style="font-size:0.9rem;">
+                            Corte moderno com acabamento perfeito na navalha.
+                        </p>
+                    </div>
+
+                    <span class="badge-price">
+                        R$ 45,00
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="service-option"
+                 onclick="selecionarServico(this,'Barba Completa com Toalha Quente')">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+                        <strong>Barba Completa com Toalha Quente</strong>
+
+                        <p class="text-muted mb-0" style="font-size:0.9rem;">
+                            Alinhamento de barba com terapia de toalha quente.
+                        </p>
+                    </div>
+
+                    <span class="badge-price">
+                        R$ 35,00
+                    </span>
+
+                </div>
+
+            </div>
+
+            <h5 class="mt-4 mb-3">
+                2. Escolha a Data e Horário
+            </h5>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Data do Agendamento
+                </label>
+
+                <input
+                    type="date"
+                    id="dataAgendamentoInput"
+                    class="form-control">
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label d-block">
+                    Horários Disponíveis
+                </label>
+
+                <div class="time-slot" onclick="selecionarHora(this)">09:00</div>
+                <div class="time-slot" onclick="selecionarHora(this)">10:30</div>
+                <div class="time-slot" onclick="selecionarHora(this)">14:00</div>
+                <div class="time-slot" onclick="selecionarHora(this)">15:30</div>
+                <div class="time-slot" onclick="selecionarHora(this)">17:00</div>
+
+            </div>
+
+            <h5 class="mt-4 mb-3">
+                3. Seus Dados de Identificação
+            </h5>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <input
+                        type="text"
+                        id="nomeClienteInput"
+                        class="form-control"
+                        placeholder="Seu Nome Completo">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <input
+                        type="text"
+                        id="telClienteInput"
+                        class="form-control"
+                        placeholder="Seu WhatsApp">
+
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+
+                <button
+                    class="btn btn-booksy w-100 py-3"
+                    onclick="finalizarAgendamentoBooksy()">
+
+                    Confirmar e Agendar no Serviflex
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+<script>
+
+let selectedServiceText = "";
+let selectedTimeText = "";
+
+function selecionarServico(elemento, servico){
+
+    document
+        .querySelectorAll(".service-option")
+        .forEach(el => el.classList.remove("selected"));
+
+    elemento.classList.add("selected");
+
+    selectedServiceText = servico;
+}
+
+function selecionarHora(elemento){
+
+    document
+        .querySelectorAll(".time-slot")
+        .forEach(el => el.classList.remove("selected"));
+
+    elemento.classList.add("selected");
+
+    selectedTimeText = elemento.innerText;
+}
+
+async function finalizarAgendamentoBooksy(){
+
+    const nomeCli =
+        document.getElementById("nomeClienteInput").value;
+
+    const telCli =
+        document.getElementById("telClienteInput").value;
+
+    const dataEscolhida =
+        document.getElementById("dataAgendamentoInput").value;
+
+    if(
+        !selectedServiceText ||
+        !selectedTimeText ||
+        !nomeCli ||
+        !telCli
+    ){
+        alert("⚠️ Preencha todos os campos.");
+        return;
+    }
+
+    const payload = {
+        nome: nomeCli,
+        telefone: telCli,
+        email:
+            nomeCli.toLowerCase().replace(/\s+/g,"")
+            + "@email.com",
+        pontos:10,
+        points:10,
+        diasDesdeUltimaVisita:0,
+        nivelFidelidade:"BRONZE",
+        dataAgendamento:dataEscolhida,
+        horaAgendamento:selectedTimeText,
+        servicoAgendamento:selectedServiceText
+    };
+
+    try{
+
+        const response =
+            await fetch(
+                "http://localhost:8080/api/clientes",
+                {
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                        "Accept":"application/json"
+                    },
+                    body:JSON.stringify(payload)
+                }
+            );
+
+        if(response.ok){
+
+            alert(
+                "🎉 Agendamento realizado com sucesso no Serviflex!"
+            );
+
+            location.reload();
+
+        }else{
+
+            alert(
+                "❌ Houve um problema ao processar seu agendamento."
+            );
+        }
+
+    }catch(error){
+
+        alert(
+            "❌ Erro ao conectar com a API Java."
+        );
+
+        console.error(error);
+    }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>SaaS Master Control</title>
+      <link rel="stylesheet"
+
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo"><h2>Servi<span>flex Master</span></h2></div>
+            <nav class="menu">
+                <a href="master-admin.html" class="active"><i class="fa-solid fa-building-shield"></i> Empresas Parceiras</a>
+                <a href="../index.html"><i class="fa-solid fa-right-from-bracket"></i> Sair do Painel</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <h1>Painel de Administração Geral do Ecossistema</h1>
+            </header>
+            <section class="content-block">
+                <h2><i class="fa-solid fa-plus"></i> Inscrever Novo Estabelecimento Comercial</h2>
+                <form id="empresa-form" class="form-grid">
+                    <input type="text" id="nomeEmpresa" placeholder="Nome do Salão/Clínica" required>
+                    <input type="text" id="cnpj" placeholder="CNPJ da Empresa" required>
+                    <select id="plano">
+                        <option value="Bronze">Plano Bronze (Básico)</option>
+                        <option value="Silver">Plano Silver (Intermediário)</option>
+                        <option value="Gold">Plano Gold (Completo com IA)</option>
+                    </select>
+                    <button type="submit" class="btn-primary">Criar Empresa no H2</button>
+                </form>
+            </section>
+            <section class="content-block">
+                <h2>Empresas Licenciadas Ativas</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr><th>Código</th><th>Nome</th><th>CNPJ</th><th>Plano Ativo</th><th>Status da Base</th></tr>
+                        </thead>
+                        <tbody id="empresas-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../js/app.js"></script>
+</body>
+</html>

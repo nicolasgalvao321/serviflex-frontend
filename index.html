@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Acesso | Serviflex</title>
+      <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+        }
+        
+        body { 
+            background-color: #f4f7fc; 
+            color: #2c3e50; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            padding: 20px; 
+        }
+
+        .portal-container { 
+            max-width: 1000px; 
+            width: 100%; 
+            text-align: center; 
+        }
+
+        .header { 
+            margin-bottom: 40px; 
+        }
+
+        .header h1 { 
+            font-size: 2.5rem; 
+            color: #0d6efd; 
+            margin-bottom: 10px; 
+            font-weight: 800; 
+            letter-spacing: -0.5px;
+        }
+
+        .header p { 
+            color: #64748b; 
+            font-size: 1.1rem; 
+        }
+
+        .cards-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 24px; 
+            margin-top: 20px; 
+        }
+
+        .card { 
+            background: white; 
+            padding: 40px 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); 
+            border: 1px solid #e2e8f0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            cursor: pointer; 
+            transition: transform 0.23s ease, box-shadow 0.23s ease, border-color 0.23s ease; 
+        }
+
+        .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); 
+        }
+
+        .icon-wrapper { 
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.8rem; 
+            margin-bottom: 24px; 
+        }
+
+        .card-client:hover { border-color: #ff2a54; }
+        .card-client .icon-wrapper { background: #ffebee; color: #ff2a54; }
+
+        .card-admin:hover { border-color: #0d6efd; }
+        .card-admin .icon-wrapper { background: #e7f1ff; color: #0d6efd; }
+
+        .card-master:hover { border-color: #7c3aed; }
+        .card-master .icon-wrapper { background: #f3e8ff; color: #7c3aed; }
+
+        .card h2 { 
+            font-size: 1.35rem; 
+            margin-bottom: 12px; 
+            font-weight: 700; 
+            color: #1e293b; 
+        }
+
+        .card p { 
+            color: #64748b; 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+            margin-bottom: 24px; 
+        }
+
+        .btn { 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            text-align: center; 
+            border: none; 
+            margin-top: auto; 
+        }
+
+        .card-client .btn { background: #ff2a54; color: white; }
+        .card-admin .btn { background: #0d6efd; color: white; }
+        .card-master .btn { background: #7c3aed; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="portal-container">
+        <div class="header">
+            <h1>Serviflex Ecosystem</h1>
+            <p>Selecione o módulo do sistema que deseja acessar para a demonstração</p>
+        </div>
+
+        <div class="cards-grid">
+            
+            <div class="card card-client" onclick="window.location.href='./appointments.html'">
+                <div class="icon-wrapper"><i class="fa-solid fa-calendar-days"></i></div>
+                <h2>Área do Cliente (Booking)</h2>
+                <p>Portal público de agendamento online de serviços, seleção de horários disponíveis e catálogo do estabelecimento comercial.</p>
+                <div class="btn">Ir para o Booking</div>
+            </div>
+
+            <div class="card card-admin" onclick="window.location.href='./admin.html'">
+                <div class="icon-wrapper"><i class="fa-solid fa-users-gear"></i></div>
+                <h2>Admin / CRM</h2>
+                <p>Gestão interna de clientes, controle de pontos de fidelidade, monitoramento de visitas e acionamento dos gatilhos de IA Cognitiva.</p>
+                <div class="btn">Ir para o Admin</div>
+            </div>
+
+            <div class="card card-master" onclick="window.location.href='./master-admin.html'">
+                <div class="icon-wrapper"><i class="fa-solid fa-sliders"></i></div>
+                <h2>Master Admin</h2>
+                <p>Painel corporativo do SaaS para controle global das empresas parceiras cadastradas, planos de assinatura e monitoramento do banco H2.</p>
+                <div class="btn">Ir para o Master</div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

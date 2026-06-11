@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"><title>CRM de Clientes</title>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo"><h2>Servi<span>flex</span></h2></div>
+            <nav class="menu"><a href="admin.html">Resumo Geral</a><a href="clients.html" class="active">CRM Clientes</a><a href="appointments.html">Agendamentos</a><a href="promotions.html">Campanhas IA</a></nav>
+        </aside>
+        <main class="main-content">
+            <section class="content-block">
+                <h2>Inserir Novo Cliente na Base H2</h2>
+                <form id="cliente-form" class="form-grid">
+                    <input type="text" id="nome" placeholder="Nome Completo" required>
+                    <input type="text" id="telefone" placeholder="WhatsApp (Com DDD)" required>
+                    <input type="email" id="email" placeholder="E-mail" required>
+                    <input type="number" id="pontos" placeholder="Pontos (XP Inicial)">
+                    <input type="number" id="dias" placeholder="Dias sem Visitas">
+                    <button type="submit" class="btn-primary">Salvar Cliente</button>
+                </form>
+            </section>
+            <section class="content-block">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem;">
+                    <h2>Clientes Registrados</h2>
+                    <input type="text" id="search-input" placeholder="🔍 Buscar cliente..." class="search-bar">
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead><tr><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Pontos</th><th>Nível</th><th>Inatividade</th><th>Ações</th></tr></thead>
+                        <tbody id="clientes-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../js/app.js"></script>
+</body>
+</html>
