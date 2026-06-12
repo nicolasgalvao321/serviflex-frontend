@@ -4,26 +4,33 @@ const API_AGENDAMENTOS_URL = "https://serviflex-production.up.railway.app/api/ag
 
 document.addEventListener("DOMContentLoaded", () => {
     inicializarTemaGlobal();
-    const path = window.location.pathname;
+    
+    // Converte o caminho para minúsculo para evitar erros e remove a necessidade do .html (Padrão Vercel)
+    const path = window.location.pathname.toLowerCase();
 
     // Fluxo do Master Admin (SaaS Control)
-    if (path.includes("master-admin.html")) {
+    if (path.includes("master-admin")) {
         listarEmpresasMaster();
-        document.getElementById("empresa-form").addEventListener("submit", salvarEmpresaMaster);
+        const formEmpresa = document.getElementById("empresa-form");
+        if(formEmpresa) formEmpresa.addEventListener("submit", salvarEmpresaMaster);
     }
 
     // Fluxo do CRM / Admin das Empresas
-    if (path.includes("admin.html") || path.includes("clients.html") || path.includes("promotions.html")) {
+    if (path.includes("admin") || path.includes("clients") || path.includes("promotions")) {
         listarClientesAdmin();
-        const f = document.getElementById("cliente-form"); if(f) f.addEventListener("submit", salvarClienteAdmin);
-        const s = document.getElementById("search-input"); if(s) s.addEventListener("input", filtrarClientes);
+        const f = document.getElementById("cliente-form"); 
+        if(f) f.addEventListener("submit", salvarClienteAdmin);
+        
+        const s = document.getElementById("search-input"); 
+        if(s) s.addEventListener("input", filtrarClientes);
     }
 
-    // Fluxo da página de Agendamento do Cliente
-    if (path.includes("appointments.html")) {
+    // Fluxo da página de Agendamento do Cliente (Suporta appointments ou booking)
+    if (path.includes("appointments") || path.includes("booking")) {
         carregarEmpresasSelect();
         listarAgendamentos();
-        document.getElementById("agendamento-form").addEventListener("submit", salvarAgendamento);
+        const formAgendamento = document.getElementById("agendamento-form");
+        if(formAgendamento) formAgendamento.addEventListener("submit", salvarAgendamento);
     }
 });
 
@@ -90,13 +97,14 @@ async function listarClientesAdmin() {
         tbody.innerHTML = "";
         
         data.forEach(c => {
+            // CORREÇÃO: Aspas fechadas corretamente no atributo class da tag span
             tbody.innerHTML += `<tr>
                 <td><strong>${c.nome}</strong></td>
                 <td>${c.telefone}</td>
                 <td>${c.email}</td>
-                <td><i class="fa-solid fa-bolt" style="color:#eab308"></i> ${c.points} XP</td>
-                <td><span class="badge badge-${(c.nivelFidelidade || "bronze").toLowerCase()">${c.nivelFidelidade}</span></td>
-                <td>${c.diasDesdeUltimaVisita} dias</td>
+                <td><i class="fa-solid fa-bolt" style="color:#eab308"></i> ${c.points || c.pontos || 0} XP</td>
+                <td><span class="badge badge-${(c.nivelFidelidade || 'bronze').toLowerCase()}">${c.nivelFidelidade || 'BRONZE'}</span></td>
+                <td>${c.diasDesdeUltimaVisita || 0} dias</td>
                 <td class="action-buttons">
                     <button class="btn-ia-fid" onclick="dispararIA(${c.id}, 'fidelidade')"><i class="fa-solid fa-brain"></i> IA Fidelidade</button>
                     <button class="btn-ia-ret" onclick="dispararIA(${c.id}, 'inativo')"><i class="fa-solid fa-ghost"></i> IA Retenção</button>
@@ -107,19 +115,26 @@ async function listarClientesAdmin() {
 
         if(document.getElementById("total-clientes")) {
             document.getElementById("total-clientes").innerText = data.length;
-            document.getElementById("clientes-gold").innerText = data.filter(c => c.nivelFidelidade === "GOLD").length;
-            document.getElementById("faturamento-simulado").innerText = "R$ " + (data.reduce((s, c) => s + c.points, 0) * 5.50).toFixed(2);
+            document.getElementById("clientes-gold").innerText = data.filter(c => (c.nivelFidelidade || '').toUpperCase() === "GOLD").length;
+            
+            // Corrige cálculo de faturamento buscando pontos corretamente
+            const totalPoints = data.reduce((s, c) => s + (c.points || c.pontos || 0), 0);
+            document.getElementById("faturamento-simulado").innerText = "R$ " + (totalPoints * 5.50).toFixed(2);
         }
     } catch (err) { console.error("Erro ao listar clientes:", err); }
 }
 
 async function salvarClienteAdmin(e) {
     e.preventDefault();
+    const pts = parseInt(document.getElementById("pontos").value) || 0;
+    
+    // CORREÇÃO: Enviando pontos e points para garantir que o Java salve sem problemas
     const payload = { 
         nome: document.getElementById("nome").value, 
         telefone: document.getElementById("telefone").value, 
         email: document.getElementById("email").value, 
-        points: parseInt(document.getElementById("pontos").value) || 0, 
+        pontos: pts, 
+        points: pts, 
         diasDesdeUltimaVisita: parseInt(document.getElementById("dias").value) || 0 
     };
     
@@ -128,6 +143,7 @@ async function salvarClienteAdmin(e) {
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify(payload) 
     });
+    
     document.getElementById("cliente-form").reset(); 
     listarClientesAdmin();
 }
@@ -142,12 +158,10 @@ async function deletarCliente(id) {
 /* ================= FUNÇÃO DISPARAR IA ATUALIZADA ================= */
 async function dispararIA(id, tipo) {
     try {
-        // 1. Busca a mensagem gerada dinamicamente pelo endpoint cognitivo do Java
         const resMsg = await fetch(`${API_URL}/${id}/mensagem-ia?tipo=${tipo}`); 
         if (!resMsg.ok) throw new Error("A API Java retornou um erro ao processar a IA.");
         const txt = await resMsg.text();
         
-        // 2. Busca a lista para obter o telefone real salvo do cliente
         const resC = await fetch(API_URL); 
         const clientes = await resC.json(); 
         const c = clientes.find(item => item.id === id);
@@ -157,10 +171,7 @@ async function dispararIA(id, tipo) {
             return; 
         }
         
-        // 3. Alerta de sucesso exibindo o poder do algoritmo no seu TCC
         alert(`🤖 Mensagem Cognitiva Criada pelo Java:\n\n"${txt}"`);
-        
-        // 4. Abre o WhatsApp com o texto já embutido de forma limpa
         window.open(`https://api.whatsapp.com/send?phone=${encodeURIComponent(c.telefone)}&text=${encodeURIComponent(txt)}`, "_blank");
     } catch (err) { 
         console.error(err); 
@@ -213,9 +224,9 @@ async function salvarAgendamento(e) {
 function filtrarClientes() {
     const b = document.getElementById("search-input").value.toLowerCase();
     document.querySelectorAll("#clientes-table-body tr").forEach(r => {
-        const nomeCelua = r.querySelector("td strong");
-        if(nomeCelua) {
-            r.style.display = nomeCelua.innerText.toLowerCase().includes(b) ? "" : "none";
+        const nomeCelula = r.querySelector("td strong"); // Corrigido erro de digitação 'nomeCelua'
+        if(nomeCelula) {
+            r.style.display = nomeCelula.innerText.toLowerCase().includes(b) ? "" : "none";
         }
     });
 }
