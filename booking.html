@@ -316,7 +316,7 @@ async function finalizarAgendamentoBooksy(){
 
         const response =
             await fetch(
-                "http://localhost:8080/api/clientes",
+                "https://serviflex-production.up.railway.app/api/clientes", // ✅ LINK CORRIGIDO PARA A NUVEM
                 {
                     method:"POST",
                     headers:{
@@ -326,6 +326,7 @@ async function finalizarAgendamentoBooksy(){
                     body:JSON.stringify(payload)
                 }
             );
+
 
         if(response.ok){
 
