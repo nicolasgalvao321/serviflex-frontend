@@ -34,9 +34,9 @@
         <a href="login.html" class="auth-link">Já tem conta? Faça Login aqui.</a>
     </div>
 
-    <script type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyDmWfFdmjPREo7fySHZwsb6ii-CxNwHUjM",
@@ -50,29 +50,30 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Login com E-mail
-    document.getElementById("login-form").addEventListener("submit", async (e) => {
+    // Cadastro com E-mail
+    document.getElementById("registro-form").addEventListener("submit", async (e) => {
         e.preventDefault();
-        const email = document.getElementById("log-email").value;
-        const senha = document.getElementById("log-senha").value;
+        const email = document.getElementById("reg-email").value;
+        const senha = document.getElementById("reg-senha").value;
         try {
-            await signInWithEmailAndPassword(auth, email, senha);
-            window.location.href = "appointments.html"; 
+            await createUserWithEmailAndPassword(auth, email, senha);
+            alert("🎉 Conta criada com sucesso! Redirecionando para o login...");
+            window.location.href = "login.html";
         } catch (error) {
             console.error(error);
-            alert("❌ Login falhou! Verifique se seu e-mail e senha estão corretos.");
+            alert("❌ Erro ao criar conta. Verifique se a senha tem no mínimo 6 caracteres ou se o e-mail já existe.");
         }
     });
 
-    // Login com Google
+    // Cadastro com Google
     const providerGoogle = new GoogleAuthProvider();
-    document.getElementById("btn-google").addEventListener("click", async () => {
+    document.getElementById("btn-google-reg").addEventListener("click", async () => {
         try {
             await signInWithPopup(auth, providerGoogle);
             window.location.href = "appointments.html";
         } catch (error) {
             console.error(error);
-            alert("❌ Erro ao fazer login com o Google.");
+            alert("❌ Erro ao vincular conta do Google.");
         }
     });
 </script>
