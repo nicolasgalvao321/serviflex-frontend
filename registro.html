@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta | Serviflex</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background-color: #f4f7fc; }
+        .auth-card { background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 100%; max-width: 400px; text-align: center; }
+        .auth-card h2 { color: #0d6efd; margin-bottom: 20px; }
+        .form-control { width: 100%; padding: 12px; margin-bottom: 15px; border: 2px solid #e2e8f0; border-radius: 10px; outline: none; }
+        .btn-auth { width: 100%; padding: 12px; background: #0d6efd; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-auth:hover { background: #0b5ed7; }
+        .auth-link { display: block; margin-top: 15px; color: #64748b; text-decoration: none; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <h2>Servi<span>flex</span></h2>
+        <p style="margin-bottom: 20px; color: #64748b;">Crie sua conta para agendar</p>
+        
+        <form id="registro-form">
+            <input type="text" id="reg-nome" class="form-control" placeholder="Seu Nome Completo" required>
+            <input type="email" id="reg-email" class="form-control" placeholder="Seu E-mail" required>
+            <input type="password" id="reg-senha" class="form-control" placeholder="Crie uma Senha (mín. 6 letras)" required>
+            <button type="submit" class="btn-auth">Cadastrar</button>
+        </form>
+        <a href="login.html" class="auth-link">Já tem conta? Faça Login aqui.</a>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDmWfFdmjPREo7fySHZwsb6ii-CxNwHUjM",
+            authDomain: "serviflex-361d3.firebaseapp.com",
+            projectId: "serviflex-361d3",
+            storageBucket: "serviflex-361d3.firebasestorage.app",
+            messagingSenderId: "1001371833968",
+            appId: "1:1001371833968:web:b7a991333987c4172946b5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById("registro-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("reg-email").value;
+            const senha = document.getElementById("reg-senha").value;
+
+            try {
+                await createUserWithEmailAndPassword(auth, email, senha);
+                alert("🎉 Conta criada com sucesso! Redirecionando para o login...");
+                window.location.href = "login.html";
+            } catch (error) {
+                console.error(error);
+                alert("❌ Erro ao criar conta. Verifique se a senha tem no mínimo 6 caracteres ou se o e-mail já existe.");
+            }
+        });
+    </script>
+</body>
+</html>
