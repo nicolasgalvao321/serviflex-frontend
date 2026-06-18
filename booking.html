@@ -117,242 +117,148 @@
 </head>
 <body>
 
-<div class="row justify-content-center">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
 
-    <div class="col-lg-8">
+            <div class="card booksy-card p-4 p-md-5">
 
-        <div class="card booksy-card p-4 p-md-5">
+                <h2 class="text-center mb-4 titulo-principal">
+                    ✨ Agende seu Horário (Serviflex)
+                </h2>
 
-            <h2 class="text-center mb-4 titulo-principal">
-                ✨ Agende seu Horário (Serviflex)
-            </h2>
+                <h5 class="mb-3">1. Selecione o Serviço</h5>
 
-            <h5 class="mb-3">1. Selecione o Serviço</h5>
-
-            <div class="service-option"
-                 onclick="selecionarServico(this,'Corte Masculino Navalhado')">
-
-                <div class="d-flex justify-content-between align-items-center">
-
-                    <div>
-                        <strong>Corte Masculino Navalhado</strong>
-
-                        <p class="text-muted mb-0" style="font-size:0.9rem;">
-                            Corte moderno com acabamento perfeito na navalha.
-                        </p>
+                <div class="service-option" onclick="selecionarServico(this,'Corte Masculino Navalhado')">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Corte Masculino Navalhado</strong>
+                            <p class="text-muted mb-0" style="font-size:0.9rem;">
+                                Corte moderno com acabamento perfeito na navalha.
+                            </p>
+                        </div>
+                        <span class="badge-price">R$ 45,00</span>
                     </div>
-
-                    <span class="badge-price">
-                        R$ 45,00
-                    </span>
-
                 </div>
 
-            </div>
-
-            <div class="service-option"
-                 onclick="selecionarServico(this,'Barba Completa com Toalha Quente')">
-
-                <div class="d-flex justify-content-between align-items-center">
-
-                    <div>
-                        <strong>Barba Completa com Toalha Quente</strong>
-
-                        <p class="text-muted mb-0" style="font-size:0.9rem;">
-                            Alinhamento de barba com terapia de toalha quente.
-                        </p>
+                <div class="service-option" onclick="selecionarServico(this,'Barba Completa com Toalha Quente')">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Barba Completa com Toalha Quente</strong>
+                            <p class="text-muted mb-0" style="font-size:0.9rem;">
+                                Alinhamento de barba com terapia de toalha quente.
+                            </p>
+                        </div>
+                        <span class="badge-price">R$ 35,00</span>
                     </div>
+                </div>
 
-                    <span class="badge-price">
-                        R$ 35,00
-                    </span>
+                <h5 class="mt-4 mb-3">2. Escolha a Data e Horário</h5>
 
+                <div class="mb-3">
+                    <label class="form-label">Data do Agendamento</label>
+                    <input type="date" id="dataAgendamentoInput" class="form-control">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label d-block">Horários Disponíveis</label>
+                    <div class="time-slot" onclick="selecionarHora(this)">09:00</div>
+                    <div class="time-slot" onclick="selecionarHora(this)">10:30</div>
+                    <div class="time-slot" onclick="selecionarHora(this)">14:00</div>
+                    <div class="time-slot" onclick="selecionarHora(this)">15:30</div>
+                    <div class="time-slot" onclick="selecionarHora(this)">17:00</div>
+                </div>
+
+                <h5 class="mt-4 mb-3">3. Seus Dados de Identificação</h5>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Nome Completo</label>
+                        <input type="text" id="nomeClienteInput" class="form-control" placeholder="Seu Nome Completo">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">WhatsApp</label>
+                        <input type="text" id="telClienteInput" class="form-control" placeholder="Seu WhatsApp">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">E-mail Real para Confirmação</label>
+                    <input type="email" id="emailClienteInput" class="form-control" placeholder="exemplo@gmail.com">
+                </div>
+
+                <div class="mt-4">
+                    <button class="btn btn-booksy w-100 py-3" onclick="finalizarAgendamentoBooksy()">
+                        Confirmar e Agendar no Serviflex
+                    </button>
                 </div>
 
             </div>
-
-            <h5 class="mt-4 mb-3">
-                2. Escolha a Data e Horário
-            </h5>
-
-            <div class="mb-3">
-
-                <label class="form-label">
-                    Data do Agendamento
-                </label>
-
-                <input
-                    type="date"
-                    id="dataAgendamentoInput"
-                    class="form-control">
-
-            </div>
-
-            <div class="mb-4">
-
-                <label class="form-label d-block">
-                    Horários Disponíveis
-                </label>
-
-                <div class="time-slot" onclick="selecionarHora(this)">09:00</div>
-                <div class="time-slot" onclick="selecionarHora(this)">10:30</div>
-                <div class="time-slot" onclick="selecionarHora(this)">14:00</div>
-                <div class="time-slot" onclick="selecionarHora(this)">15:30</div>
-                <div class="time-slot" onclick="selecionarHora(this)">17:00</div>
-
-            </div>
-
-            <h5 class="mt-4 mb-3">
-                3. Seus Dados de Identificação
-            </h5>
-
-            <div class="row">
-
-                <div class="col-md-6 mb-3">
-
-                    <input
-                        type="text"
-                        id="nomeClienteInput"
-                        class="form-control"
-                        placeholder="Seu Nome Completo">
-
-                </div>
-
-                <div class="col-md-6 mb-3">
-
-                    <input
-                        type="text"
-                        id="telClienteInput"
-                        class="form-control"
-                        placeholder="Seu WhatsApp">
-
-                </div>
-
-            </div>
-
-            <div class="mt-4">
-
-                <button
-                    class="btn btn-booksy w-100 py-3"
-                    onclick="finalizarAgendamentoBooksy()">
-
-                    Confirmar e Agendar no Serviflex
-
-                </button>
-
-            </div>
-
         </div>
-
     </div>
-
-</div>
 </div>
 
 <script>
-
 let selectedServiceText = "";
 let selectedTimeText = "";
 
 function selecionarServico(elemento, servico){
-
-    document
-        .querySelectorAll(".service-option")
-        .forEach(el => el.classList.remove("selected"));
-
+    document.querySelectorAll(".service-option").forEach(el => el.classList.remove("selected"));
     elemento.classList.add("selected");
-
     selectedServiceText = servico;
 }
 
 function selecionarHora(elemento){
-
-    document
-        .querySelectorAll(".time-slot")
-        .forEach(el => el.classList.remove("selected"));
-
+    document.querySelectorAll(".time-slot").forEach(el => el.classList.remove("selected"));
     elemento.classList.add("selected");
-
     selectedTimeText = elemento.innerText;
 }
 
 async function finalizarAgendamentoBooksy(){
+    const nomeCli = document.getElementById("nomeClienteInput").value;
+    const telCli = document.getElementById("telClienteInput").value;
+    const emailCli = document.getElementById("emailClienteInput").value; 
+    const dataEscolhida = document.getElementById("dataAgendamentoInput").value;
 
-    const nomeCli =
-        document.getElementById("nomeClienteInput").value;
-
-    const telCli =
-        document.getElementById("telClienteInput").value;
-
-    const dataEscolhida =
-        document.getElementById("dataAgendamentoInput").value;
-
-    if(
-        !selectedServiceText ||
-        !selectedTimeText ||
-        !nomeCli ||
-        !telCli
-    ){
-        alert("⚠️ Preencha todos os campos.");
+    if(!selectedServiceText || !selectedTimeText || !nomeCli || !telCli || !emailCli || !dataEscolhida){
+        alert("⚠️ Por favor, preencha todos os campos.");
         return;
     }
 
     const payload = {
         nome: nomeCli,
         telefone: telCli,
-        email:
-            nomeCli.toLowerCase().replace(/\s+/g,"")
-            + "@email.com",
-        pontos:10,
-        points:10,
-        diasDesdeUltimaVisita:0,
-        nivelFidelidade:"BRONZE",
-        dataAgendamento:dataEscolhida,
-        horaAgendamento:selectedTimeText,
-        servicoAgendamento:selectedServiceText
+        email: emailCli, 
+        pontos: 10,
+        points: 10,
+        diasDesdeUltimaVisita: 0,
+        nivelFidelidade: "BRONZE",
+        dataAgendamento: dataEscolhida,
+        horaAgendamento: selectedTimeText,
+        servicoAgendamento: selectedServiceText
     };
 
     try{
-
-        const response =
-            await fetch(
-                "https://serviflex-production.up.railway.app/api/clientes", // ✅ LINK CORRIGIDO PARA A NUVEM
-                {
-                    method:"POST",
-                    headers:{
-                        "Content-Type":"application/json",
-                        "Accept":"application/json"
-                    },
-                    body:JSON.stringify(payload)
-                }
-            );
-
+        const response = await fetch("http://localhost:8080/api/clientes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
 
         if(response.ok){
-
-            alert(
-                "🎉 Agendamento realizado com sucesso no Serviflex!"
-            );
-
+            alert("🎉 Agendamento realizado com sucesso no Serviflex!");
             location.reload();
-
         }else{
-
-            alert(
-                "❌ Houve um problema ao processar seu agendamento."
-            );
+            alert("❌ Houve um problema ao processar seu agendamento.");
         }
-
     }catch(error){
-
-        alert(
-            "❌ Erro ao conectar com a API Java."
-        );
-
+        alert("❌ Erro ao conectar com a API Java. Verifique se o backend está rodando.");
         console.error(error);
     }
 }
-
 </script>
 </body>
 </html>
