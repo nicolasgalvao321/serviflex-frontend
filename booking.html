@@ -239,7 +239,7 @@ async function finalizarAgendamentoBooksy(){
     };
 
     try{
-        const response = await fetch("http://localhost:8080/api/clientes", {
+        const response = await fetch("https://serviflex-production.up.railway.app/api/clientes", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
